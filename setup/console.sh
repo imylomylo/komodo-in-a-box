@@ -7,6 +7,8 @@ if [ ! -f ~/.dev2wallet ]; then
 fi
 source setup/wallet-console.sh
 source setup/kmdice.sh
+source setup/rick.sh
+source setup/morty.sh
 source setup/kmd.sh
 source setup/ksb.sh
 source setup/pirate.sh
@@ -33,6 +35,8 @@ BSK_1_HOST "Blockchain Starer Kit - single node seed & mining" \
 KMD "(experimental) KMD - the Komodo ecosystem currency" \
 BTC "(todo) - Bitcoin & other blockchains" \
 KMDICE "KMDICE - the mineable provably fair chain" \
+RICK "RICK - a test chain" \
+MORTY "MORTY - a test chain" \
 MM2 "(q3 2019) - Marketmaker 2 integration" \
 PIRATE "(experimental) PIRATE - ARRR an enforced privary chain" \
 ZEX "(todo) ZEX - Zaddex Hybrid DEX Exchange" \
@@ -55,6 +59,8 @@ case $menuitem in
 	BSK) bsk;;
 	KMD) submenu_kmd;;
 	KMDICE) submenu_kmdice;;
+	RICK) submenu_rick;;
+	MORTY) submenu_morty;;
 	KSB) submenu_ksb;;
 	PIZZA) submenu_pizza;;
 	BEER) submenu_beer;;

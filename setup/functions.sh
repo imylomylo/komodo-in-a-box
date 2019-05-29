@@ -396,27 +396,27 @@ function start_pizza {
 }
 
 #y23y
-function start_kmdice {
-	CHAIN="KMDICE"
-	source ~/.devwallet
-	echo "Starting $CHAIN..."
-	sleep 2
-	if ! ps aux | grep -i "[k]mdice" ; then
-		echo "Starting $CHAIN... "
-		if [ "$DEVPUBKEY" == "" ]; then
-			echo "Starting $CHAIN with no pubkey set"
-			hide_output komodod -ac_name=KMDICE -ac_supply=10500000 -ac_reward=2500000000 -ac_halving=210000 -ac_cc=2 -addressindex=1 -spentindex=1 -addnode=144.76.217.232 &
-			sleep 3
-		else
-			echo "Starting $CHAIN with pubkey $DEVPUBKEY"
-			hide_output komodod -pubkey=$DEVPUBKEY -ac_name=KMDICE -ac_supply=10500000 -ac_reward=2500000000 -ac_halving=210000 -ac_cc=2 -addressindex=1 -spentindex=1 -addnode=144.76.217.232 &
-			sleep 3
-		fi
-	else
-		echo "Not starting $CHAIN - already started"
-		sleep 4
-	fi
-}
+#function start_kmdice {
+#	CHAIN="KMDICE"
+#	source ~/.devwallet
+#	echo "Starting $CHAIN..."
+#	sleep 2
+#	if ! ps aux | grep -i "[k]mdice" ; then
+#		echo "Starting $CHAIN... "
+#		if [ "$DEVPUBKEY" == "" ]; then
+#			echo "Starting $CHAIN with no pubkey set"
+#			hide_output komodod -ac_name=KMDICE -ac_supply=10500000 -ac_reward=2500000000 -ac_halving=210000 -ac_cc=2 -addressindex=1 -spentindex=1 -addnode=144.76.217.232 &
+#			sleep 3
+#		else
+#			echo "Starting $CHAIN with pubkey $DEVPUBKEY"
+#			hide_output komodod -pubkey=$DEVPUBKEY -ac_name=KMDICE -ac_supply=10500000 -ac_reward=2500000000 -ac_halving=210000 -ac_cc=2 -addressindex=1 -spentindex=1 -addnode=144.76.217.232 &
+#			sleep 3
+#		fi
+#	else
+#		echo "Not starting $CHAIN - already started"
+#		sleep 4
+#	fi
+#}
 
 function delete_blockchain_data_kmdice {
   CHAIN="KMDICE"

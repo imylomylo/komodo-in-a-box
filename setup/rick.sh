@@ -1,7 +1,7 @@
-function submenu_kmdice {
+function submenu_rick {
 while true
 do
-CHAIN=KMDICE
+CHAIN=RICK
 
 ### display main menu ###
 dialog --clear  --help-button --backtitle "Cakeshop Console" \
@@ -13,9 +13,9 @@ Choose the TASK" 25 60 14 \
 GETINFO "Get Info - $CHAIN getinfo method" \
 LISTUNSPENT "List Unspent UTXO - $CHAIN listunspent" \
 GETPEERINFO "Get Network Info - $CHAIN getpeerinfo" \
-KMDICE_GETMININGINFO "Get Mining Info - $CHAIN getmininginfo" \
-KMDICE_DELETE "Experimental - Delete blockchain data" \
-KMDICE_START "Start $CHAIN" \
+RICK_GETMININGINFO "Get Mining Info - $CHAIN getmininginfo" \
+RICK_DELETE "Experimental - Delete blockchain data" \
+RICK_START "Start $CHAIN" \
 WALLET "Wallet function for $CHAIN" \
 FAUCET "Faucet functions for $CHAIN" \
 REWARDS "Rewards functions for $CHAIN" \
@@ -28,23 +28,23 @@ menuitem=$(<"${INPUT}")
 
 # make decsion
 case $menuitem in
-	KMDICE_DELETE) delete_blockchain_data_kmdice;;
-	KMDICE_START) start_kmdice;;
+	RICK_DELETE) delete_blockchain_data_rick;;
+	RICK_START) start_rick;;
 	STOP) stop;;
 	GETINFO) getinfo;;
 	LISTUNSPENT) listunspent;;
 	GETPEERINFO) getpeerinfo;;	
 	GETMININGINFO) getmininginfo;;
-	WALLET) kmdice_wallet;;
-	TOKENS) kmdice_tokens;;
-  FAUCET) kmdice_faucet;;
-  REWARDS) kmdice_rewards;;
+	WALLET) rick_wallet;;
+	TOKENS) rick_tokens;;
+  FAUCET) rick_faucet;;
+  REWARDS) rick_rewards;;
 	Back) echo "Bye"; break;;
 esac
 done
 }
 
-function kmdice_wallet {
+function rick_wallet {
   KIABMETHOD="listunspent"
   if ps aux | grep -i komodod | grep -v "naame\|grep" ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
@@ -56,7 +56,7 @@ function kmdice_wallet {
   fi
 }
 
-function kmdice_tokens {
+function rick_tokens {
   KIABMETHOD="listunspent"
   if ps aux | grep -i $CHAIN ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
@@ -69,7 +69,7 @@ function kmdice_tokens {
 }
 
 
-function kmdice_faucet {
+function rick_faucet {
   KIABMETHOD="listunspent"
   if ps aux | grep -i $CHAIN ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
@@ -81,7 +81,7 @@ function kmdice_faucet {
   fi
 }
 
-function kmdice_rewards {
+function rick_rewards {
   KIABMETHOD="listunspent"
   if ps aux | grep -i $CHAIN ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
@@ -93,20 +93,20 @@ function kmdice_rewards {
   fi
 }
 
-function start_kmdice {
-        CHAIN="KMDICE"
+function start_rick {
+        CHAIN="RICK"
         source ~/.devwallet
         echo "Starting $CHAIN..."
         sleep 2
-        if ! ps aux | grep -i "[k]mdice" ; then
+        if ! ps aux | grep -i "=$CHAIN " | grep -v grep ; then
                 echo "Starting $CHAIN... "
                 if [ "$DEVPUBKEY" == "" ]; then
                         echo "Starting $CHAIN with no pubkey set"
-                        hide_output komodod -ac_name=KMDICE -ac_supply=10500000 -ac_reward=2500000000 -ac_halving=210000 -ac_cc=2 -addressindex=1 -spentindex=1 -addnode=144.76.217.232 &
+			hide_output komodod -ac_name=RICK -ac_supply=90000000000 -ac_reward=100000000 -ac_cc=3 -addnode=138.201.136.145 &
                         sleep 3
                 else
                         echo "Starting $CHAIN with pubkey $DEVPUBKEY"
-                        hide_output komodod -pubkey=$DEVPUBKEY -ac_name=KMDICE -ac_supply=10500000 -ac_reward=2500000000 -ac_halving=210000 -ac_cc=2 -addressindex=1 -spentindex=1 -addnode=144.76.217.232 &
+			hide_output komodod -pubkey=$DEVPUBKEY -ac_name=RICK -ac_supply=90000000000 -ac_reward=100000000 -ac_cc=3 -addnode=138.201.136.145 &
                         sleep 3
                 fi
         else
