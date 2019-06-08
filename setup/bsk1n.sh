@@ -8,7 +8,7 @@ do
 
 ### display main menu ###
 dialog --clear  --help-button --backtitle "Cakeshop Console" \
---title "[ Blockchain Starter Kit - $CHAIN ]" \
+--title "[ 1 Node Blockchain Starter Kit - $CHAIN ]" \
 --menu "You can use the UP/DOWN arrow keys, the first \n\
 letter of the choice as a hot key. \n\
 \n\
@@ -69,7 +69,7 @@ letter of the choice as a hot key, or the \n\
 number keys 1-9 to choose an option.\n\
 Choose the TASK" 25 120 14 \
 SEED-GETINFO "BSK-1node $CHAIN seed getinfo" \
-NEW-NODE-SEED "Create a BSK-1node $CHAIN seed node" \
+SPINUP-SEEDNODE "Create a BSK-1node $CHAIN seed node" \
 SHUTDOWN-NODE-SEED "Shutdown $CHAIN seed node" \
 COINGW "Experimental: Coin Gateway" \
 TOKENS "Use the tokenization system on this blockchain" \
@@ -84,7 +84,7 @@ menuitem=$(<"${INPUT}")
 
 # make decsion
 case $menuitem in
-  SPINUP-SEED) bsk1n_seed_spinup;;
+  SPINUP-SEEDNODE) bsk1n_seed_spinup;;
   SEED-GETINFO) bsk1n_seed_getinfo;;
   COINGW) coingw;;
   SHUTDOWN-NODE-SEED) bsk1n_seed_shutdown;;
@@ -115,7 +115,7 @@ MINER-GETMININGINFO "BSK-1node $CHAIN mining getmininginfo" \
 MINING-START "BSK-1node $CHAIN start mining" \
 MINING-STOP "BSK-1node $CHAIN mining stop" \
 IMPORT-DEV-WALLET "BSK-1node $CHAIN import the dev wallet of this node" \
-NEW-NODE-MINER "Create a BSK-1node $CHAIN mining node" \
+SPINUP-MININGNODE "Create a BSK-1node $CHAIN mining node" \
 TOKENS "Use the tokenization system on this blockchain" \
 ORACLES "Use the oracles on this blockchain" \
 FAUCET "Use the on-chain faucet" \
@@ -130,7 +130,7 @@ menuitem=$(<"${INPUT}")
 
 # make decsion
 case $menuitem in
-  NEW-NODE-MINER) bsk1n_mining_spinup;;
+  SPINUP-MININGNODE) bsk1n_mining_spinup;;
   MINER-GETINFO) bsk1n_mining_getinfo;;
   MINER-GETMININGINFO) bsk1n_mining_getmininginfo;;
   MINING-START) bsk1n_mining_start;;
@@ -193,6 +193,8 @@ function bsk1n_mining_getmininginfo {
 }
 
 function bsk1n_seed_spinup {
+	echo "TEST"
+	sleep 3
     if ps aux | grep -i $CHAIN | grep -iv "coinData\|grep" ; then
 	    echo "seed node for name $CHAIN running, use different name"
 	    sleep 2
