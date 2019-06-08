@@ -4,6 +4,7 @@
 INSTALL_DIR=`pwd`
 #sudo apt-get update
 #sudo apt-get -y install libgomp1 jq dialog
+export NCURSES_NO_UTF8_ACS=1
 source setup/functions.sh # load our functions
 mkdir -p ~/bin
 
