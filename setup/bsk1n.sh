@@ -77,6 +77,7 @@ ORACLES "Use the oracles on this blockchain" \
 FAUCET "Use the on-chain faucet" \
 REWARDS "Use the on-chain rewards system" \
 WALLET "Use this node $CHAIN wallet" \
+REINDEX "After installing an explorer" \
 Back "Back a menu" 2>"${INPUT}"
 
 menuitem=$(<"${INPUT}")
@@ -93,7 +94,8 @@ case $menuitem in
   FAUCET) bsk1n_seed_faucet;;
   REWARDS) bsk1n_seed_rewards;;
   WALLET) bsk1n_seed_wallet;;
-	Back) echo "Bye"; break;;
+  REINDEX) bsk1n_seed_reindex;;
+  Back) echo "Bye"; break;;
 esac
 done
 }
@@ -152,7 +154,7 @@ done
 function bsk1n_seed_getinfo {
   CHAIN=$CHAIN
   METHOD="getinfo"
-  if ps aux | grep -i $CHAIN | grep -v grep ; then
+  if ps aux | grep -i $CHAIN | grep -v "coinData\|grep" ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
     curl -s --user $rpcuser:$rpcpassword --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"$METHOD\", \"params\": []}" -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq -r '.result' > ~/.$METHOD
     MSGBOXINFO=`cat ~/.$METHOD`
@@ -192,10 +194,31 @@ function bsk1n_mining_getmininginfo {
   fi
 }
 
+function bsk1n_seed_reindex {
+    if ps aux | grep komodod | grep -i "=$CHAIN " | grep -iv "coinData\|grep" ; then
+	    echo "seed node for name $CHAIN running, use different name"
+	    sleep 2
+    else
+      input_box "$CHAIN" "How many $CHAIN coins?" "1000" SUPPLY
+      source ~/.devwallet
+      echo $SUPPLY
+      sleep 1
+      echo $CHAIN
+      sleep 1
+      echo "BSK_$CHAIN=-ac_supply=$SUPPLY" >> ~/.komodoinabox.conf
+      hide_output komodod -ac_name=$CHAIN -ac_supply=$SUPPLY -pubkey=$DEVPUBKEY -ac_cc=2 -reindex &>/dev/null &
+      sleep 1
+      sleep 1
+      source ~/.komodo/$CHAIN/$CHAIN.conf
+      echo "Finishing seed node setup"
+      sleep 5
+      curl -s --user $rpcuser:$rpcpassword --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"importprivkey\", \"params\": [\"$DEVWIF\"]}" -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq -r '.result'
+      sleep 1
+    fi
+}
+
 function bsk1n_seed_spinup {
-	echo "TEST"
-	sleep 3
-    if ps aux | grep -i $CHAIN | grep -iv "coinData\|grep" ; then
+    if ps aux | grep komodod | grep -i "=$CHAIN " | grep -iv "coinData\|grep" ; then
 	    echo "seed node for name $CHAIN running, use different name"
 	    sleep 2
     else
