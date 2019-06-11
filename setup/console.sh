@@ -9,6 +9,7 @@ source setup/wallet-console.sh
 source setup/kmdice.sh
 source setup/rick.sh
 source setup/morty.sh
+source setup/zexo.sh
 source setup/kmd.sh
 source setup/ksb.sh
 source setup/pirate.sh
@@ -39,7 +40,7 @@ RICK "RICK - a test chain" \
 MORTY "MORTY - a test chain" \
 MM2 "(q3 2019) - Marketmaker 2 integration" \
 PIRATE "(experimental) PIRATE - ARRR an enforced privary chain" \
-ZEX "(todo) ZEX - Zaddex Hybrid DEX Exchange" \
+ZEXO "(experimental) ZEXO - Zaddex Hybrid DEX Exchange" \
 KSB "(experimental) KSB - Ecosystem stable coin from O-Crypto-Union" \
 OUR "(todo) OUR - O-Crypto-Union" \
 PGT "(todo) PGT - Pungo Token - the services company paying back to the community" \
@@ -61,6 +62,7 @@ case $menuitem in
 	KMDICE) submenu_kmdice;;
 	RICK) submenu_rick;;
 	MORTY) submenu_morty;;
+	ZEXO) submenu_zexo;;
 	KSB) submenu_ksb;;
 	PIZZA) submenu_pizza;;
 	BEER) submenu_beer;;

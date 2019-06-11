@@ -1,11 +1,11 @@
-function submenu_kmdice {
+function submenu_zexo {
 while true
 do
-CHAIN=KMDICE
+CHAIN=ZEXO
 
 ### display main menu ###
 dialog --clear  --help-button --backtitle "Cakeshop Console" \
---title "[ K M D I C E - C O N S O L E ]" \
+--title "[ Z E X O  - C O N S O L E ]" \
 --menu "You can use the UP/DOWN arrow keys, the first \n\
 letter of the choice as a hot key, or the \n\
 number keys 1-9 to choose an option.\n\
@@ -13,9 +13,9 @@ Choose the TASK" 25 60 14 \
 GETINFO "Get Info - $CHAIN getinfo method" \
 LISTUNSPENT "List Unspent UTXO - $CHAIN listunspent" \
 GETPEERINFO "Get Network Info - $CHAIN getpeerinfo" \
-KMDICE_GETMININGINFO "Get Mining Info - $CHAIN getmininginfo" \
-KMDICE_DELETE "Experimental - Delete blockchain data" \
-KMDICE_START "Start $CHAIN" \
+ZEXO_GETMININGINFO "Get Mining Info - $CHAIN getmininginfo" \
+ZEXO_DELETE "Experimental - Delete blockchain data" \
+ZEXO_START "Start $CHAIN" \
 WALLET "Wallet function for $CHAIN" \
 FAUCET "Faucet functions for $CHAIN" \
 REWARDS "Rewards functions for $CHAIN" \
@@ -28,23 +28,23 @@ menuitem=$(<"${INPUT}")
 
 # make decsion
 case $menuitem in
-	KMDICE_DELETE) delete_blockchain_data_kmdice;;
-	KMDICE_START) start_kmdice;;
+	ZEXO_DELETE) delete_blockchain_data_zexo;;
+	ZEXO_START) start_zexo;;
 	STOP) stop;;
 	GETINFO) getinfo;;
 	LISTUNSPENT) listunspent;;
 	GETPEERINFO) getpeerinfo;;	
 	GETMININGINFO) getmininginfo;;
-	WALLET) kmdice_wallet;;
-	TOKENS) kmdice_tokens;;
-  FAUCET) kmdice_faucet;;
-  REWARDS) kmdice_rewards;;
+	WALLET) zexo_wallet;;
+	TOKENS) zexo_tokens;;
+  FAUCET) zexo_faucet;;
+  REWARDS) zexo_rewards;;
 	Back) echo "Bye"; break;;
 esac
 done
 }
 
-function kmdice_wallet {
+function zexo_wallet {
   KIABMETHOD="listunspent"
   if ps aux | grep -i komodod | grep -v "naame\|grep" ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
@@ -56,7 +56,7 @@ function kmdice_wallet {
   fi
 }
 
-function kmdice_tokens {
+function zexo_tokens {
   KIABMETHOD="listunspent"
   if ps aux | grep -i $CHAIN ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
@@ -69,7 +69,7 @@ function kmdice_tokens {
 }
 
 
-function kmdice_faucet {
+function zexo_faucet {
   KIABMETHOD="listunspent"
   if ps aux | grep -i $CHAIN ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
@@ -81,7 +81,7 @@ function kmdice_faucet {
   fi
 }
 
-function kmdice_rewards {
+function zexo_rewards {
   KIABMETHOD="listunspent"
   if ps aux | grep -i $CHAIN ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
@@ -93,20 +93,20 @@ function kmdice_rewards {
   fi
 }
 
-function start_kmdice {
-        CHAIN="KMDICE"
+function start_zexo {
+        CHAIN="ZEXO"
         source ~/.devwallet
         echo "Starting $CHAIN..."
         sleep 2
-	if ! ps aux | grep -i "=$CHAIN " | grep -v grep ; then
+        if ! ps aux | grep -i "=$CHAIN " | grep -v grep ; then
                 echo "Starting $CHAIN... "
                 if [ "$DEVPUBKEY" == "" ]; then
                         echo "Starting $CHAIN with no pubkey set"
-                        hide_output komodod -ac_name=KMDICE -ac_supply=10500000 -ac_reward=2500000000 -ac_halving=210000 -ac_cc=2 -addressindex=1 -spentindex=1 -addnode=144.76.217.232 &
+			hide_output komodod -pubkey=$DEVPUBKEY -ac_name=ZEXO -ac_supply=100000000 -ac_reward=1478310502 -ac_halving=525600 -ac_cc=42 -ac_ccenable=236 -ac_perc=77700 -ac_staked=93 -ac_pubkey=02713bd85e054db923694b6b7a85306264edf4d6bd6d331814f2b40af444b3ebbc -ac_public=1 -addnode=80.240.17.222 &
                         sleep 3
                 else
                         echo "Starting $CHAIN with pubkey $DEVPUBKEY"
-                        hide_output komodod -pubkey=$DEVPUBKEY -ac_name=KMDICE -ac_supply=10500000 -ac_reward=2500000000 -ac_halving=210000 -ac_cc=2 -addressindex=1 -spentindex=1 -addnode=144.76.217.232 &
+			hide_output komodod -pubkey=$DEVPUBKEY -ac_name=ZEXO -ac_supply=100000000 -ac_reward=1478310502 -ac_halving=525600 -ac_cc=42 -ac_ccenable=236 -ac_perc=77700 -ac_staked=93 -ac_pubkey=02713bd85e054db923694b6b7a85306264edf4d6bd6d331814f2b40af444b3ebbc -ac_public=1 -addnode=80.240.17.222 &
                         sleep 3
                 fi
         else
