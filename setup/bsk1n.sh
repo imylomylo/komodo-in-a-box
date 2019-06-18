@@ -1,7 +1,45 @@
+function tutorials {
 
-function bsk1n {
+#input_box "Blockchain Starter Kit - Step 1" "Name of chain?" "HELLOWORLD" CHAIN
+# sets CHAIN to the current chain, for tutorials, user selects TUT1, TUT2, TUT3, TUT4
 
-input_box "Blockchain Starter Kit - Step 1" "Name of chain?" "HELLOWORLD" CHAIN
+while true
+do
+
+### display main menu ###
+dialog --clear  --help-button --backtitle "Komodo Tutorials Console" \
+--title "[ Komodo Smart Chain Tutorials & Blockchain Starter Kit ]" \
+--menu "You can use the UP/DOWN arrow keys, the first \n\
+letter of the choice as a hot key. \n\
+\n\
+Choose the Seed or Mining Menu" 25 120 14 \
+TUT1 "Tutorial 1 - TUT1 Smart Chain Creation Walkthrough" \
+TUT2 "Tutorial 2 - TUT2 Smart Chain Creation & Faucet API Walkthrough" \
+TUT3 "Tutorial 3 - (todo) TUT3 Smart Chain Creation & Token DEX API Walkthrough" \
+TUT4 "Tutorial 4 - (todo) TUT4 Smart Chain Creation & NFT Walkthrough" \
+TUT5 "Tutorial 5 - (todo) TUT5 Smart Chain Creation & Cross Chain API Walkthrough" \
+Back "Back a menu" 2>"${INPUT}"
+
+menuitem=$(<"${INPUT}")
+
+
+# make decsion
+case $menuitem in
+	TUT1) CHAIN=TUT1;bsk1n_tutorials;;
+	TUT2) CHAIN=TUT2;bsk1n_tutorials;;
+	TUT3) CHAIN=TUT3;bsk1n_tutorials;;
+	TUT4) CHAIN=TUT4;bsk1n_tutorials;;
+	TUT5) CHAIN=TUT5;bsk1n_tutorials;;
+	Back) echo "Bye"; break;;
+esac
+done
+}
+
+function bsk1n_tutorials {
+
+#input_box "Blockchain Starter Kit - Step 1" "Name of chain?" "HELLOWORLD" CHAIN
+echo "Tutorial using $CHAIN"
+sleep 5
 
 while true
 do
