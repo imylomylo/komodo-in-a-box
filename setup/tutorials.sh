@@ -31,7 +31,7 @@ dialog --clear  --help-button --backtitle "Komodo Tutorials Console" \
 letter of the choice as a hot key, or the \n\
 number keys 1-9 to choose an option.\n\
 Choose the TASK" 25 120 14 \
-TUTORIALS "Blockchain Starer Kit & Guided Tutorials - Komodo Smart Chains" \
+TUTORIALS "Blockchain Starter Kit & Guided Tutorials for Komodo Smart Chains" \
 RICK "RICK - a test chain" \
 MORTY "MORTY - a test chain" \
 MAINT "Maintenance menu" \

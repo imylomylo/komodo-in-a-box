@@ -13,11 +13,64 @@ dialog --clear  --help-button --backtitle "Komodo Tutorials Console" \
 letter of the choice as a hot key. \n\
 \n\
 Choose the Seed or Mining Menu" 25 120 14 \
-TUT1 "Tutorial 1 - TUT1 Smart Chain Creation Walkthrough" \
-TUT2 "Tutorial 2 - TUT2 Smart Chain Creation & Faucet API Walkthrough" \
-TUT3 "Tutorial 3 - (todo) TUT3 Smart Chain Creation & Token DEX API Walkthrough" \
-TUT4 "Tutorial 4 - (todo) TUT4 Smart Chain Creation & NFT Walkthrough" \
-TUT5 "Tutorial 5 - (todo) TUT5 Smart Chain Creation & Cross Chain API Walkthrough" \
+TUT1 "Tutorial 1 - Smart Chain Creation Walkthrough" \
+TUT2 "Tutorial 2 - Antara Module Faucet API Walkthrough" \
+TUT3 "Tutorial 3 - Antara Module Tokens DEX API Walkthrough" \
+TUT4 "Tutorial 4 - Antara Module Tokens NFT Walkthrough" \
+TUT5 "Tutorial 5 - Antara Platform Sync Cross Chain API Walkthrough" \
+Back "Back a menu" 2>"${INPUT}"
+
+menuitem=$(<"${INPUT}")
+
+# make decsion
+case $menuitem in
+	TUT1) CHAIN=TUT1;bsk1n_tutorials_1;;
+	TUT2) CHAIN=TUT1;bsk1n_tutorials_2;;
+	TUT3) CHAIN=TUT1;bsk1n_tutorials_3;;
+	TUT4) CHAIN=TUT1;bsk1n_tutorials_X;;
+	TUT5) CHAIN=TUT5;bsk1n_tutorials_X;;
+	Back) echo "Bye"; break;;
+esac
+done
+}
+
+function bsk1n_tutorials_1 {
+
+#input_box "Blockchain Starter Kit - Step 1" "Name of chain?" "HELLOWORLD" CHAIN
+echo "Loading tutorial using $CHAIN"
+sleep 3
+
+while true
+do
+
+### display main menu ###
+dialog --clear  --help-button --backtitle "Tutorials Console" \
+--title "[ 1 Node Blockchain Starter Kit - $CHAIN ]" \
+--menu "You can use the UP/DOWN arrow keys, the first \n\
+letter of the choice as a hot key. \n\
+\n\
+Go into each menu to complete the tasks \n\
+1. Seed Node \n\
+    a) Create Seed Node (Spin up) \n\
+    b) Go to WALLET submenu and IMPORTDEVWALLET \n\
+    c) Optionally VALIDATE the imported wallet \n\
+2. Mining Node \n\
+    a) Create Mining Node (Spin up) \n\
+    b) Go to WALLET submenu and IMPORTDEVWALLET \n\
+    c) Optionally VALIDATE the imported wallet \n\
+3. Mining Node \n\
+    a) Start Mining the first blocks of $CHAIN (setgenerate true) \n\
+    b) Get Mining Info \n\
+4. Mining Node \n\
+    a) Get Blockchain Info \n\
+5. Mining Node \n\
+    a) Stop Mining (setgenerate false) \n\
+    b) Shutdown Node \n\
+6. Seed Node \n\
+    a) Shutdown Node \n\
+Choose the Seed or Mining Menu" 35 140 14 \
+SEED-MENU "BSK - Single host - $CHAIN seed control" \
+MINING-MENU "BSK - Single host -  $CHAIN mining control" \
 Back "Back a menu" 2>"${INPUT}"
 
 menuitem=$(<"${INPUT}")
@@ -25,32 +78,119 @@ menuitem=$(<"${INPUT}")
 
 # make decsion
 case $menuitem in
-	TUT1) CHAIN=TUT1;bsk1n_tutorials;;
-	TUT2) CHAIN=TUT2;bsk1n_tutorials;;
-	TUT3) CHAIN=TUT3;bsk1n_tutorials;;
-	TUT4) CHAIN=TUT4;bsk1n_tutorials;;
-	TUT5) CHAIN=TUT5;bsk1n_tutorials;;
+	SEED-MENU) bsk1n_seed_menu;;
+	MINING-MENU) bsk1n_mining_menu;;
 	Back) echo "Bye"; break;;
 esac
 done
 }
 
-function bsk1n_tutorials {
+function bsk1n_tutorials_2 {
 
 #input_box "Blockchain Starter Kit - Step 1" "Name of chain?" "HELLOWORLD" CHAIN
-echo "Tutorial using $CHAIN"
-sleep 5
+echo "Loading tutorial using $CHAIN"
+sleep 3
 
 while true
 do
 
 ### display main menu ###
-dialog --clear  --help-button --backtitle "Cakeshop Console" \
+dialog --clear  --help-button --backtitle "Tutorials Console" \
+--title "[ 1 Node Blockchain Starter Kit - $CHAIN ]" \
+--menu "You can use the UP/DOWN arrow keys, the first letter of the choice as a hot key. \n\
+\n\
+A faucet is useful for bootstrapping new users with just enough $CHAIN coins to use other Antara modules.  For example, to create a non-fungible token in the collectible sense of unique player data.  In the tutorial following this one, fungible tokens will be created to represent tokenized assets and traded in the Antara Tokens module's DEX capabilities. \n\
+\n\
+1. Create the $CHAIN Smart Chain until the mining node mines a block to get the initial supply in it's imported address \n\
+2. Mining Node \n\
+    a) Check the premine funds of 1000 $CHAIN coins are in the control of the node operator (you) by going to the WALLET submenu and getting the balance or listing the unspent coins\n\
+3. Mining Node Deposit $CHAIN coins into the on-chain faucet application\n\
+    a) It is now time to lock some of these pre-mine $CHAIN coins in a faucet for new users to tap into and request a small amount \n\
+    b) Go to the FAUCET menu and select the FAUCETFUND option to deposit some funds into the faucet\n\
+    c) The response will be a transaction id.   This transaction needs to be put into a block. \n\
+    d) Using the mining node's main menu, use the GETINFO command to wait for the blocks attribute to go up \n\
+    e) Optionally, from the FAUCET menu select INFO to view the faucet's global chain info \n\
+4. Seed Node - get funds from the on-chain Faucet provided by the Antara module\n\
+    a) Using the WALLET menu on the seed node, validate the address ismine is true.  If it isn't, use the IMPORT-DEV-WALLET command from the menu\n\
+    b) Go to the FAUCET menu and select GET funds option\n\
+    c) The faucetget transaction requires some proof of work.  This is an example of how to minimize spam by making the client create a transaction that ends in a specific sequence of bytes. \n\
+    d) When the transaction fulfils the requirements of ending in the bytes 0x00 0x00, it will be sent to the network. \n\
+    e) Wait for the next block to be mined.  Check the seed node's GETINFO command to monitor the blockchain info\n\
+\n\
+Choose the Seed or Mining Menu" 35 140 14 \
+SEED-MENU "BSK - Single host - $CHAIN seed control" \
+MINING-MENU "BSK - Single host -  $CHAIN mining control" \
+Back "Back a menu" 2>"${INPUT}"
+
+menuitem=$(<"${INPUT}")
+
+
+# make decsion
+case $menuitem in
+	SEED-MENU) bsk1n_seed_menu;;
+	MINING-MENU) bsk1n_mining_menu;;
+	Back) echo "Bye"; break;;
+esac
+done
+}
+
+function bsk1n_tutorials_3 {
+
+#input_box "Blockchain Starter Kit - Step 1" "Name of chain?" "HELLOWORLD" CHAIN
+echo "Loading tutorial using $CHAIN"
+sleep 3
+
+while true
+do
+
+### display main menu ###
+dialog --clear  --help-button --backtitle "Tutorials Console" \
+--title "[ 1 Node Blockchain Starter Kit - $CHAIN ]" \
+--menu "You can use the UP/DOWN arrow keys, the first letter of the choice as a hot key. \n\
+\n\
+Go into each menu to complete the tasks \n\
+1. Seed Node from Tutorial 2 now has 0.1 $CHAIN coins.  These can be used for creating tokens and then selling them on the on-chain DEX for the mining node wallet to buy with the $CHAIN coins. \n\
+    a)  \n\
+2. Mining Node \n\
+    a) Create Mining Node (Spin up) import dev wallet & validate  \n\
+Choose the Seed or Mining Menu" 35 140 14 \
+SEED-MENU "BSK - Single host - $CHAIN seed control" \
+MINING-MENU "BSK - Single host -  $CHAIN mining control" \
+Back "Back a menu" 2>"${INPUT}"
+
+menuitem=$(<"${INPUT}")
+
+
+# make decsion
+case $menuitem in
+	SEED-MENU) bsk1n_seed_menu;;
+	MINING-MENU) bsk1n_mining_menu;;
+	Back) echo "Bye"; break;;
+esac
+done
+}
+
+function bsk1n_tutorials_X {
+
+#input_box "Blockchain Starter Kit - Step 1" "Name of chain?" "HELLOWORLD" CHAIN
+echo "Loading tutorial using $CHAIN"
+sleep 3
+
+while true
+do
+
+### display main menu ###
+dialog --clear  --help-button --backtitle "Tutorials Console" \
 --title "[ 1 Node Blockchain Starter Kit - $CHAIN ]" \
 --menu "You can use the UP/DOWN arrow keys, the first \n\
 letter of the choice as a hot key. \n\
 \n\
-Choose the Seed or Mining Menu" 25 120 14 \
+Go into each menu to complete the tasks \n\
+1. Seed Node \n\
+    a) Create Seed Node (Spin up) import dev wallet & validate \n\
+2. Mining Node \n\
+    a) Create Mining Node (Spin up) import dev wallet & validate  \n\
+Choose the Seed or Mining Menu" 35 140 14 \
 SEED-MENU "BSK - Single host - $CHAIN seed control" \
 MINING-MENU "BSK - Single host -  $CHAIN mining control" \
 Back "Back a menu" 2>"${INPUT}"
@@ -72,7 +212,7 @@ while true
 do
 
 ### display main menu ###
-dialog --clear  --help-button --backtitle "Cakeshop Console" \
+dialog --clear  --help-button --backtitle "Tutorials Console" \
 --title "[ Blockchain Starter Kit - Control $CHAIN ]" \
 --menu "You can use the UP/DOWN arrow keys, the first \n\
 letter of the choice as a hot key. \n\
@@ -100,22 +240,22 @@ while true
 do
 
 ### display main menu ###
-dialog --clear  --help-button --backtitle "Cakeshop Console using pubkey $DEVPUBKEY" \
+dialog --clear  --help-button --backtitle "Tutorials Console using pubkey $DEVPUBKEY" \
 --title "[ Blockchain Starter Kit - $CHAIN Seed Menu ]" \
 --menu "You can use the UP/DOWN arrow keys, the first \n\
 letter of the choice as a hot key, or the \n\
 number keys 1-9 to choose an option.\n\
 Choose the TASK" 25 120 14 \
-SEED-GETINFO "BSK-1node $CHAIN seed getinfo" \
-SPINUP-SEEDNODE "Create a BSK-1node $CHAIN seed node" \
+SEED-GETINFO "$CHAIN seed getinfo" \
+SPINUP-SEEDNODE "Create a Smart Chain Seed Node For $CHAIN"  \
 SHUTDOWN-NODE-SEED "Shutdown $CHAIN seed node" \
-COINGW "Experimental: Coin Gateway" \
+COINGW "(todo) Experimental: Coin Gateway" \
 TOKENS "Use the tokenization system on this blockchain" \
 ORACLES "Use the oracles on this blockchain" \
 FAUCET "Use the on-chain faucet" \
 REWARDS "Use the on-chain rewards system" \
 WALLET "Use this node $CHAIN wallet" \
-REINDEX "After installing an explorer" \
+REINDEX "Required after installing a blockchain explorer for the first time" \
 Back "Back a menu" 2>"${INPUT}"
 
 menuitem=$(<"${INPUT}")
@@ -144,7 +284,7 @@ while true
 do
 
 ### display main menu ###
-dialog --clear  --help-button --backtitle "Cakeshop Console using pubkey $DEVPUBKEY" \
+dialog --clear  --help-button --backtitle "Tutorials Console using pubkey $DEVPUBKEY" \
 --title "[ Blockchain Starter Kit - $CHAIN Mining Menu ]" \
 --menu "You can use the UP/DOWN arrow keys, the first \n\
 letter of the choice as a hot key, or the \n\
@@ -154,7 +294,6 @@ MINER-GETINFO "BSK-1node $CHAIN mining getinfo" \
 MINER-GETMININGINFO "BSK-1node $CHAIN mining getmininginfo" \
 MINING-START "BSK-1node $CHAIN start mining" \
 MINING-STOP "BSK-1node $CHAIN mining stop" \
-IMPORT-DEV-WALLET "BSK-1node $CHAIN import the dev wallet of this node" \
 SPINUP-MININGNODE "Create a BSK-1node $CHAIN mining node" \
 TOKENS "Use the tokenization system on this blockchain" \
 ORACLES "Use the oracles on this blockchain" \
@@ -176,7 +315,6 @@ case $menuitem in
   MINING-START) bsk1n_mining_start;;
   MINING-STOP) bsk1n_mining_stop;;
   COINGW) coingw;;
-  IMPORT-DEV-WALLET) bsk1n_mining_importdevwallet;;
   SHUTDOWN-NODE-MINER) bsk1n_mining_shutdown;;
   TOKENS) bsk1n_mining_tokens;;
   ORACLES) bsk1n_mining_oracles;;
