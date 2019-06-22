@@ -249,6 +249,7 @@ Choose the TASK" 25 120 14 \
 SEED-GETINFO "$CHAIN seed getinfo" \
 SPINUP-SEEDNODE "Create a Smart Chain Seed Node For $CHAIN"  \
 SHUTDOWN-NODE-SEED "Shutdown $CHAIN seed node" \
+DUMP-RPCCREDENTIALS "Dumps the rpcuser and rpcpassword for this $CHAIN seed node and exit" \
 COINGW "(todo) Experimental: Coin Gateway" \
 TOKENS "Use the tokenization system on this blockchain" \
 ORACLES "Use the oracles on this blockchain" \
@@ -265,6 +266,7 @@ menuitem=$(<"${INPUT}")
 case $menuitem in
   SPINUP-SEEDNODE) bsk1n_seed_spinup;;
   SEED-GETINFO) bsk1n_seed_getinfo;;
+  DUMP-RPCCREDENTIALS) dump_seed_rpccredentials;;
   COINGW) coingw;;
   SHUTDOWN-NODE-SEED) bsk1n_seed_shutdown;;
   TOKENS) bsk1n_seed_tokens;;
@@ -645,3 +647,13 @@ function bsk1n_mining_rewards {
     sleep 1
   fi
 }
+
+function dump_seed_rpccredentials {
+  RPCUSER=`cat ~/.komodo/$CHAIN/$CHAIN.conf | grep "^rpcuser="`
+  RPCPASSWORD=`cat ~/.komodo/$CHAIN/$CHAIN.conf | grep "^rpcpassword="`
+  echo "$RPCUSER"
+  echo "$RPCPASSWORD"
+  echo "Goodbye"
+  exit
+}
+
