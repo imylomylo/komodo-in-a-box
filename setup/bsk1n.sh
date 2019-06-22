@@ -404,8 +404,10 @@ function bsk1n_seed_spinup {
       sleep 1
       echo $CHAIN
       sleep 1
+      IPA=`ifconfig | grep inet | grep -v 127 | awk '{print $2}'`
+      IPR=`ip r | grep default | awk '{print $3}'`
       echo "BSK_$CHAIN=-ac_supply=$SUPPLY" >> ~/.komodoinabox.conf
-      hide_output komodod -ac_name=$CHAIN -ac_supply=$SUPPLY -pubkey=$DEVPUBKEY -ac_cc=2 &>/dev/null &
+      hide_output komodod -ac_name=$CHAIN -ac_supply=$SUPPLY -pubkey=$DEVPUBKEY -ac_cc=2 -rpcbind=$IPA -rpcallowip=$IPR &>/dev/null &
       sleep 1
       sleep 1
       source ~/.komodo/$CHAIN/$CHAIN.conf
