@@ -484,8 +484,9 @@ function setup_devwallet {
   echo "Entering DEV wallet setup"
   if ! ps aux | grep -i [r]egtest | grep -v dialog | grep -vi cakeshopdevsetup ; then
     echo "Starting DEV wallet setup"
+    echo "Waiting 10 seconds"
     hide_output komodod -regtest -ac_name=TUTORIALDEVSETUP -ac_supply=500 &
-    sleep 7
+    sleep 10
     source ~/.komodo/TUTORIALDEVSETUP/TUTORIALDEVSETUP.conf
     DEVADDRESS=`curl -s --user $rpcuser:$rpcpassword --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getnewaddress", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq -r '.result'`
     DEVWIF=`curl -s --user $rpcuser:$rpcpassword --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"dumpprivkey\", \"params\": [\"$DEVADDRESS\"]}" -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq -r '.result'`
