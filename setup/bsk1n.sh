@@ -68,16 +68,18 @@ dialog --clear  --help-button --backtitle "Cakeshop Console using pubkey $DEVPUB
 letter of the choice as a hot key, or the \n\
 number keys 1-9 to choose an option.\n\
 Choose the TASK" 25 120 14 \
-SEED-GETINFO "BSK-1node $CHAIN seed getinfo" \
-SPINUP-SEEDNODE "Create a BSK-1node $CHAIN seed node" \
-SHUTDOWN-NODE-SEED "Shutdown $CHAIN seed node" \
-COINGW "Experimental: Coin Gateway" \
-TOKENS "Use the tokenization system on this blockchain" \
-ORACLES "Use the oracles on this blockchain" \
+GETINFO "BSK-1node $CHAIN seed getinfo" \
+WALLET "Use this node $CHAIN wallet" \
+BLOCKCHAIN "Use this node $CHAIN blockchain functions" \
+ADDRESS "Use this node $CHAIN address functions for $DEVADDRESS" \
 FAUCET "Use the on-chain faucet" \
 REWARDS "Use the on-chain rewards system" \
-WALLET "Use this node $CHAIN wallet" \
+TOKENS "Use the tokenization system on this blockchain" \
+ORACLES "Use the oracles on this blockchain" \
+COINGW "Experimental: Coin Gateway" \
 REINDEX "After installing an explorer" \
+SHUTDOWN-SEEDNODE "Shutdown $CHAIN seed node" \
+SPINUP-SEEDNODE "Create a BSK-1node $CHAIN seed node" \
 Back "Back a menu" 2>"${INPUT}"
 
 menuitem=$(<"${INPUT}")
@@ -86,14 +88,16 @@ menuitem=$(<"${INPUT}")
 # make decsion
 case $menuitem in
   SPINUP-SEEDNODE) bsk1n_seed_spinup;;
-  SEED-GETINFO) bsk1n_seed_getinfo;;
+  GETINFO) bsk1n_seed_getinfo;;
   COINGW) coingw;;
-  SHUTDOWN-NODE-SEED) bsk1n_seed_shutdown;;
+  SHUTDOWN-SEEDNODE) bsk1n_seed_shutdown;;
   TOKENS) bsk1n_seed_tokens;;
   ORACLES) bsk1n_seed_oracles;;
   FAUCET) bsk1n_seed_faucet;;
   REWARDS) bsk1n_seed_rewards;;
   WALLET) bsk1n_seed_wallet;;
+  BLOCKCHAIN) bsk1n_seed_blockchain;;
+  ADDRESS) bsk1n_seed_address;;
   REINDEX) bsk1n_seed_reindex;;
   Back) echo "Bye"; break;;
 esac
@@ -112,19 +116,20 @@ dialog --clear  --help-button --backtitle "Cakeshop Console using pubkey $DEVPUB
 letter of the choice as a hot key, or the \n\
 number keys 1-9 to choose an option.\n\
 Choose the TASK" 25 120 14 \
-MINER-GETINFO "BSK-1node $CHAIN mining getinfo" \
-MINER-GETMININGINFO "BSK-1node $CHAIN mining getmininginfo" \
-MINING-START "BSK-1node $CHAIN start mining" \
-MINING-STOP "BSK-1node $CHAIN mining stop" \
-IMPORT-DEV-WALLET "BSK-1node $CHAIN import the dev wallet of this node" \
-SPINUP-MININGNODE "Create a BSK-1node $CHAIN mining node" \
-TOKENS "Use the tokenization system on this blockchain" \
-ORACLES "Use the oracles on this blockchain" \
+GETINFO "BSK-1node $CHAIN mining getinfo" \
+WALLET "Use this node $CHAIN wallet" \
+BLOCKCHAIN "Use this node $CHAIN blockchain functions" \
+ADDRESS "Use this node $CHAIN address functions for $DEVADDRESS" \
 FAUCET "Use the on-chain faucet" \
 REWARDS "Use the on-chain rewards system" \
-WALLET "Use this node $CHAIN wallet" \
+TOKENS "Use the tokenization system on this blockchain" \
+ORACLES "Use the oracles on this blockchain" \
 COINGW "Experimental: Coin Gateway" \
-SHUTDOWN-NODE-MINER "Shutdown $CHAIN mining node" \
+GETMININGINFO "BSK-1node $CHAIN mining getmininginfo" \
+MINING-START "BSK-1node $CHAIN start mining" \
+MINING-STOP "BSK-1node $CHAIN mining stop" \
+SHUTDOWN-MININGNODE "Shutdown $CHAIN mining node" \
+SPINUP-MININGNODE "Create a BSK-1node $CHAIN mining node" \
 Back "Back a menu" 2>"${INPUT}"
 
 menuitem=$(<"${INPUT}")
@@ -133,18 +138,19 @@ menuitem=$(<"${INPUT}")
 # make decsion
 case $menuitem in
   SPINUP-MININGNODE) bsk1n_mining_spinup;;
-  MINER-GETINFO) bsk1n_mining_getinfo;;
-  MINER-GETMININGINFO) bsk1n_mining_getmininginfo;;
+  GETINFO) bsk1n_mining_getinfo;;
+  GETMININGINFO) bsk1n_mining_getmininginfo;;
   MINING-START) bsk1n_mining_start;;
   MINING-STOP) bsk1n_mining_stop;;
   COINGW) coingw;;
-  IMPORT-DEV-WALLET) bsk1n_mining_importdevwallet;;
-  SHUTDOWN-NODE-MINER) bsk1n_mining_shutdown;;
+  SHUTDOWN-MININGNODE) bsk1n_mining_shutdown;;
   TOKENS) bsk1n_mining_tokens;;
   ORACLES) bsk1n_mining_oracles;;
   FAUCET) bsk1n_mining_faucet;;
   REWARDS) bsk1n_mining_rewards;;
   WALLET) bsk1n_mining_wallet;;
+  BLOCKCHAIN) bsk1n_mining_blockchain;;
+  ADDRESS) bsk1n_mining_address;;
 	Back) echo "Bye"; break;;
 esac
 done
@@ -357,6 +363,30 @@ function bsk1n_seed_wallet {
   fi
 }
 
+function bsk1n_seed_address {
+  KIABMETHOD="listunspent"
+  if ps aux | grep -i $CHAIN ; then
+    source ~/.komodo/$CHAIN/$CHAIN.conf
+    source $HOME/.devwallet
+    submenu_address
+  else
+    echo "Nothing to query - start $CHAIN..."
+    sleep 1
+  fi
+}
+
+function bsk1n_seed_blockchain {
+  KIABMETHOD="listunspent"
+  if ps aux | grep -i $CHAIN ; then
+    source ~/.komodo/$CHAIN/$CHAIN.conf
+    source $HOME/.devwallet
+    submenu_blockchain
+  else
+    echo "Nothing to query - start $CHAIN..."
+    sleep 1
+  fi
+}
+
 function bsk1n_seed_tokens {
   KIABMETHOD="listunspent"
   if ps aux | grep -i $CHAIN ; then
@@ -411,6 +441,30 @@ function bsk1n_mining_wallet {
     source ~/coinData/$CHAIN/$CHAIN.conf
     source $HOME/.dev2wallet
     submenu_wallet
+  else
+    echo "Nothing to query - start $CHAIN..."
+    sleep 1
+  fi
+}
+
+function bsk1n_mining_address {
+  KIABMETHOD="listunspent"
+  if ps aux | grep -i $CHAIN | grep coinData ; then
+    source ~/coinData/$CHAIN/$CHAIN.conf
+    source $HOME/.dev2wallet
+    submenu_address
+  else
+    echo "Nothing to query - start $CHAIN..."
+    sleep 1
+  fi
+}
+
+function bsk1n_mining_blockchain {
+  KIABMETHOD="listunspent"
+  if ps aux | grep -i $CHAIN ; then
+    source ~/.komodo/$CHAIN/$CHAIN.conf
+    source $HOME/.dev2wallet
+    submenu_blockchain
   else
     echo "Nothing to query - start $CHAIN..."
     sleep 1

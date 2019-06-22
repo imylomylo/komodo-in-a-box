@@ -5,7 +5,6 @@ fi
 if [ ! -f ~/.dev2wallet ]; then
   setup_dev2wallet
 fi
-source setup/wallet-console.sh
 source setup/kmdice.sh
 source setup/rick.sh
 source setup/morty.sh
@@ -20,6 +19,9 @@ source setup/tokens-console.sh
 source setup/oracles-console.sh
 source setup/faucet-console.sh
 source setup/rewards-console.sh
+source setup/wallet-console.sh
+source setup/address-console.sh
+source setup/blockchain-console.sh
 
 while true
 do

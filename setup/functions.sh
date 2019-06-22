@@ -5,6 +5,8 @@
 set -euo pipefail
 source setup/komodo-api/control.sh
 source setup/komodo-api/wallet.sh
+source setup/komodo-api/address.sh
+source setup/komodo-api/blockchain.sh
 source setup/komodo-api/network.sh
 source setup/komodo-api/mining.sh
 source setup/komodo-api/util.sh
