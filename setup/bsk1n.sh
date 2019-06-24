@@ -96,7 +96,7 @@ do
 
 ### display main menu ###
 dialog --clear  --help-button --backtitle "Tutorials Console" \
---title "[ 1 Node Blockchain Starter Kit - $CHAIN ]" \
+--title "[ Funding & Tapping The  Antara Faucet Module - $CHAIN ]" \
 --menu "You can use the UP/DOWN arrow keys, the first letter of the choice as a hot key. \n\
 \n\
 A faucet is useful for bootstrapping new users with just enough $CHAIN coins to use other Antara modules.  For example, to create a non-fungible token in the collectible sense of unique player data.  In the tutorial following this one, fungible tokens will be created to represent tokenized assets and traded in the Antara Tokens module's DEX capabilities. \n\
@@ -145,17 +145,25 @@ do
 
 ### display main menu ###
 dialog --clear  --help-button --backtitle "Tutorials Console" \
---title "[ 1 Node Blockchain Starter Kit - $CHAIN ]" \
+--title "[ Connecting With Programming Languages & Navigation - $CHAIN ]" \
 --menu "You can use the UP/DOWN arrow keys, the first letter of the choice as a hot key. \n\
 \n\
-Go into each menu to complete the tasks \n\
-1. Seed Node from Tutorial 2 now has 0.1 $CHAIN coins.  These can be used for creating tokens and then selling them on the on-chain DEX for the mining node wallet to buy with the $CHAIN coins. \n\
-    a)  \n\
-2. Mining Node \n\
-    a) Create Mining Node (Spin up) import dev wallet & validate  \n\
+These guided tutorials, if started with the docker port command line switch (or docker management GUIs), are forwarding\n\
+port 9253 to the workstation/server running the docker container. The port numbers of your custom chains are deterministically generated (repeatable)\n\
+based on the initial coin supply (-ac_supply) and name of the chain (-ac_name) of the Blockchain Starter Kit Smart Chain parameters.  If you run \n\
+the BSK with -ac_name=TUT1 -ac_supply=1000, the RPC port will always be 9253.\n\
+\n\
+Some snippets from programming languages are below with links to the web.\n\
+\n\
+Further information about the seed nodes are also contained below.\n\
+\n\
 Choose the Seed or Mining Menu" 35 140 14 \
-SEED-MENU "BSK - Single host - $CHAIN seed control" \
-MINING-MENU "BSK - Single host -  $CHAIN mining control" \
+MOREINFO "More info about the $CHAIN seed node" \
+CURL "Command line curl or for use in postman or insomnia" \
+PYTHON-1 "A snippet showing python" \
+PYTHON-2 "A snippet showing python" \
+NODEJS "A snippet showing nodejs" \
+BROWSER "A small browser example" \
 Back "Back a menu" 2>"${INPUT}"
 
 menuitem=$(<"${INPUT}")
@@ -163,8 +171,7 @@ menuitem=$(<"${INPUT}")
 
 # make decsion
 case $menuitem in
-	SEED-MENU) bsk1n_seed_menu;;
-	MINING-MENU) bsk1n_mining_menu;;
+	MOREINFO) tutorial_moreinfo;;
 	Back) echo "Bye"; break;;
 esac
 done
@@ -187,9 +194,9 @@ letter of the choice as a hot key. \n\
 \n\
 Go into each menu to complete the tasks \n\
 1. Seed Node \n\
-    a) Create Seed Node (Spin up) import dev wallet & validate \n\
+    a) Create Seed Node "Spin up" import dev wallet & validate \n\
 2. Mining Node \n\
-    a) Create Mining Node (Spin up) import dev wallet & validate  \n\
+    a) Create Mining Node "Spin up" import dev wallet & validate  \n\
 Choose the Seed or Mining Menu" 35 140 14 \
 SEED-MENU "BSK - Single host - $CHAIN seed control" \
 MINING-MENU "BSK - Single host -  $CHAIN mining control" \
