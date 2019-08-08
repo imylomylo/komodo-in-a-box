@@ -5,16 +5,11 @@ fi
 if [ ! -f ~/.dev2wallet ]; then
   setup_dev2wallet
 fi
-source setup/kmdice.sh
-source setup/rick.sh
-source setup/morty.sh
-source setup/zexo.sh
+source setup/komodo-api/control.sh
+source setup/chain.sh
 source setup/kmd.sh
-source setup/ksb.sh
 source setup/pirate.sh
 source setup/maint.sh
-source setup/beer.sh
-source setup/pizza.sh
 source setup/tokens-console.sh
 source setup/oracles-console.sh
 source setup/faucet-console.sh
@@ -42,14 +37,12 @@ RICK "RICK - a test chain" \
 MORTY "MORTY - a test chain" \
 MM2 "(q3 2019) - Marketmaker 2 integration" \
 PIRATE "(experimental) PIRATE - ARRR an enforced privary chain" \
-ZEXO "(experimental) ZEXO - Zaddex Hybrid DEX Exchange" \
-KSB "(experimental) KSB - Ecosystem stable coin from O-Crypto-Union" \
-OUR "(todo) OUR - O-Crypto-Union" \
-PGT "(todo) PGT - Pungo Token - the services company paying back to the community" \
-OOT "(todo) OOT - Utrum Crypto Review Platform" \
-RFOX "(todo) RedFOX Labs - The blockchain startup incubation project" \
-PIZZA "PIZZA - the pizza chain" \
-BEER "BEER - the beer chain" \
+ZEXO "ZEXO - Zaddex Hybrid DEX Exchange" \
+KSB "KSB - Ecosystem stable coin from O-Crypto-Union" \
+OUR "OUR - O-Crypto-Union" \
+PGT "PGT - Pungo Token - the services company paying back to the community" \
+OOT "OOT - Utrum Crypto Review Platform" \
+RFOX "RedFOX Labs - The blockchain startup incubation project" \
 MAINT "Maintenance menu" \
 Exit "Exit to the shell" 2>"${INPUT}"
 
@@ -61,13 +54,15 @@ case $menuitem in
 	BSK_1_HOST) bsk1n;;
 	BSK) bsk;;
 	KMD) submenu_kmd;;
-	KMDICE) submenu_kmdice;;
-	RICK) submenu_rick;;
-	MORTY) submenu_morty;;
-	ZEXO) submenu_zexo;;
-	KSB) submenu_ksb;;
-	PIZZA) submenu_pizza;;
-	BEER) submenu_beer;;
+	KMDICE) CHAIN=KMDICE;submenu_chain;;
+	RICK) CHAIN=RICK;submenu_chain;;
+	MORTY) CHAIN=MORTY;submenu_chain;;
+	ZEXO) CHAIN=ZEXO;submenu_chain;;
+	KSB) CHAIN=KSB;submenu_chain;;
+	OUR) CHAIN=OUR;submenu_chain;;
+	PGT) CHAIN=PGT;submenu_chain;;
+	OOT) CHAIN=OOT;submenu_chain;;
+	RFOX) CHAIN=RFOX;submenu_chain;;
 	PIRATE) submenu_pirate;;
 	MAINT) submenu_maint;;
 	Exit) echo "Bye"; break;;

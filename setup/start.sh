@@ -16,7 +16,8 @@ cd `pwd`
 source setup/start.sh
 EOF
 chmod +x ~/bin/komodoinabox
-
+echo "Starting console"
+sleep 3
 source setup/console.sh 
 echo
 echo "-----------------------------------------------"

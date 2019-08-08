@@ -1,11 +1,10 @@
-function submenu_zexo {
+function submenu_chain {
 while true
 do
-CHAIN=ZEXO
 
 ### display main menu ###
 dialog --clear  --help-button --backtitle "Cakeshop Console" \
---title "[ Z E X O  - C O N S O L E ]" \
+--title "[ B L O C K C H A I N - C O N S O L E ]" \
 --menu "You can use the UP/DOWN arrow keys, the first \n\
 letter of the choice as a hot key, or the \n\
 number keys 1-9 to choose an option.\n\
@@ -13,14 +12,14 @@ Choose the TASK" 25 60 14 \
 GETINFO "Get Info - $CHAIN getinfo method" \
 LISTUNSPENT "List Unspent UTXO - $CHAIN listunspent" \
 GETPEERINFO "Get Network Info - $CHAIN getpeerinfo" \
-ZEXO_GETMININGINFO "Get Mining Info - $CHAIN getmininginfo" \
-ZEXO_DELETE "Experimental - Delete blockchain data" \
-ZEXO_START "Start $CHAIN" \
+GETMININGINFO "Get Mining Info - $CHAIN getmininginfo" \
 WALLET "Wallet function for $CHAIN" \
 FAUCET "Faucet functions for $CHAIN" \
 REWARDS "Rewards functions for $CHAIN" \
 TOKENS "Use the tokenization system on this blockchain" \
-STOP "Stop $CHAIN" \
+CHAINSTOP "Stop $CHAIN" \
+CHAINDELETE "Experimental - Delete blockchain data" \
+CHAINSTART "Start $CHAIN" \
 Back "Back a menu" 2>"${INPUT}"
 
 menuitem=$(<"${INPUT}")
@@ -28,25 +27,25 @@ menuitem=$(<"${INPUT}")
 
 # make decsion
 case $menuitem in
-	ZEXO_DELETE) delete_blockchain_data_zexo;;
-	ZEXO_START) start_zexo;;
-	STOP) stop;;
+	CHAINDELETE) delete_blockchain_data_chain;;
+	CHAINSTART) start_chain;;
+	CHAINSTOP) stop_chain;;
 	GETINFO) getinfo;;
 	LISTUNSPENT) listunspent;;
 	GETPEERINFO) getpeerinfo;;	
 	GETMININGINFO) getmininginfo;;
-	WALLET) zexo_wallet;;
-	TOKENS) zexo_tokens;;
-  FAUCET) zexo_faucet;;
-  REWARDS) zexo_rewards;;
+	WALLET) chain_wallet;;
+	TOKENS) chain_tokens;;
+	FAUCET) chain_faucet;;
+	REWARDS) chain_rewards;;
 	Back) echo "Bye"; break;;
 esac
 done
 }
 
-function zexo_wallet {
+function chain_wallet {
   KIABMETHOD="listunspent"
-  if ps aux | grep -i komodod | grep -v "naame\|grep" ; then
+  if ps aux | grep -i $CHAIN ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
     source $HOME/.devwallet
     submenu_wallet
@@ -56,11 +55,35 @@ function zexo_wallet {
   fi
 }
 
-function zexo_tokens {
+function chain_address {
   KIABMETHOD="listunspent"
   if ps aux | grep -i $CHAIN ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
-    source ~/.devwallet
+    source $HOME/.devwallet
+    submenu_address
+  else
+    echo "Nothing to query - start $CHAIN..."
+    sleep 1
+  fi
+}
+
+function chain_blockchain {
+  KIABMETHOD="listunspent"
+  if ps aux | grep -i $CHAIN ; then
+    source ~/.komodo/$CHAIN/$CHAIN.conf
+    source $HOME/.devwallet
+    submenu_blockchain
+  else
+    echo "Nothing to query - start $CHAIN..."
+    sleep 1
+  fi
+}
+
+function chain_tokens {
+  KIABMETHOD="listunspent"
+  if ps aux | grep -i $CHAIN ; then
+    source ~/.komodo/$CHAIN/$CHAIN.conf
+    source $HOME/.devwallet
     submenu_tokens
   else
     echo "Nothing to query - start $CHAIN..."
@@ -68,12 +91,23 @@ function zexo_tokens {
   fi
 }
 
-
-function zexo_faucet {
+function chain_oracles {
   KIABMETHOD="listunspent"
   if ps aux | grep -i $CHAIN ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
-    source ~/.devwallet
+    source $HOME/.devwallet
+    submenu_oracles
+  else
+    echo "Nothing to query - start $CHAIN..."
+    sleep 1
+  fi
+}
+
+function chain_faucet {
+  KIABMETHOD="listunspent"
+  if ps aux | grep -i $CHAIN ; then
+    source ~/.komodo/$CHAIN/$CHAIN.conf
+    source $HOME/.devwallet
     submenu_faucet
   else
     echo "Nothing to query - start $CHAIN..."
@@ -81,11 +115,11 @@ function zexo_faucet {
   fi
 }
 
-function zexo_rewards {
+function chain_rewards {
   KIABMETHOD="listunspent"
   if ps aux | grep -i $CHAIN ; then
     source ~/.komodo/$CHAIN/$CHAIN.conf
-    source ~/.devwallet
+    source $HOME/.devwallet
     submenu_rewards
   else
     echo "Nothing to query - start $CHAIN..."
@@ -93,20 +127,36 @@ function zexo_rewards {
   fi
 }
 
-function start_zexo {
-        CHAIN="ZEXO"
+function stop_chain {
+  KIABMETHOD="listunspent"
+  if ps aux | grep -i $CHAIN ; then
+    source ~/.komodo/$CHAIN/$CHAIN.conf
+    source $HOME/.devwallet
+    stop
+  else
+    echo "Nothing to query - start $CHAIN..."
+    sleep 1
+  fi
+}
+
+function start_chain {
         source ~/.devwallet
+	pubkey=$DEVPUBKEY
         echo "Starting $CHAIN..."
         sleep 2
         if ! ps aux | grep -i "=$CHAIN " | grep -v grep ; then
                 echo "Starting $CHAIN... "
                 if [ "$DEVPUBKEY" == "" ]; then
                         echo "Starting $CHAIN with no pubkey set"
-			hide_output komodod -pubkey=$DEVPUBKEY -ac_name=ZEXO -ac_supply=100000000 -ac_reward=1478310502 -ac_halving=525600 -ac_cc=42 -ac_ccenable=236 -ac_perc=77700 -ac_staked=93 -ac_pubkey=02713bd85e054db923694b6b7a85306264edf4d6bd6d331814f2b40af444b3ebbc -ac_public=1 -addnode=80.240.17.222 &
+			cmd=$(grep $CHAIN ~/komodo/src/assetchains.old | sed  's/^\.\///')
+			hide_output eval $cmd
                         sleep 3
                 else
                         echo "Starting $CHAIN with pubkey $DEVPUBKEY"
-			hide_output komodod -pubkey=$DEVPUBKEY -ac_name=ZEXO -ac_supply=100000000 -ac_reward=1478310502 -ac_halving=525600 -ac_cc=42 -ac_ccenable=236 -ac_perc=77700 -ac_staked=93 -ac_pubkey=02713bd85e054db923694b6b7a85306264edf4d6bd6d331814f2b40af444b3ebbc -ac_public=1 -addnode=80.240.17.222 &
+			cmd=$(grep $CHAIN ~/komodo/src/assetchains.old | sed  's/^\.\///')
+			echo $cmd
+			sleep 2
+			hide_output eval $cmd
                         sleep 3
                 fi
         else
