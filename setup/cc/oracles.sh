@@ -10,12 +10,36 @@ function oracleslist {
   fi
 }
 
+function helper_oracleslist {
+  KIABMETHOD="oracleslist"
+  if ps aux | grep komodod | grep $CHAIN | grep -v grep ; then
+    curl -s --user $rpcuser:$rpcpassword --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"$KIABMETHOD\", \"params\": []}" -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq -r '.result' > ~/.kiabresponse
+    KIABRESPONSE=`cat ~/.kiabresponse`
+    # message box removed
+  else
+    echo "Nothing to query - start $CHAIN..."
+    sleep 1
+  fi
+}
+
 function oraclesinfo {
   KIABMETHOD="oraclesinfo"
   if ps aux | grep komodod | grep $CHAIN | grep -v grep ; then
-    curl -s --user $rpcuser:$rpcpassword --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"$KIABMETHOD\", \"params\": [\"$ORACLETXID\"]}" -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq -r '.result' > ~/.kiabresponse
+    curl -s --user $rpcuser:$rpcpassword --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"$KIABMETHOD\", \"params\": [\"$ORACLESTXID\"]}" -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq -r '.result' > ~/.kiabresponse
     KIABRESPONSE=`cat ~/.kiabresponse`
     message_box "$KIABMETHOD" "$KIABRESPONSE"
+  else
+    echo "Nothing to query - start $CHAIN..."
+    sleep 1
+  fi
+}
+
+function helper_oraclesinfo {
+  KIABMETHOD="oraclesinfo"
+  if ps aux | grep komodod | grep $CHAIN | grep -v grep ; then
+    curl -s --user $rpcuser:$rpcpassword --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"$KIABMETHOD\", \"params\": [\"$ORACLESTXID\"]}" -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq -r '.result' > ~/.kiabresponse
+    KIABRESPONSE=`cat ~/.kiabresponse`
+    # message box removed
   else
     echo "Nothing to query - start $CHAIN..."
     sleep 1
@@ -42,6 +66,19 @@ function oraclesaddress {
     curl -s --user $rpcuser:$rpcpassword --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"$KIABMETHOD\", \"params\": []}" -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq -r '.result' > ~/.kiabresponse
     KIABRESPONSE=`cat ~/.kiabresponse`
     message_box "$KIABMETHOD" "$KIABRESPONSE"
+  else
+    echo "Nothing to query - start $CHAIN..."
+    sleep 1
+  fi
+}
+
+function oraclesregister {
+  KIABMETHOD="oraclesregister"
+  if ps aux | grep komodod | grep $CHAIN | grep -v grep ; then
+    curl -s --user $rpcuser:$rpcpassword --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"$KIABMETHOD\", \"params\": [\"$ORACLESTXID\", \"$ORACLESDATAFEE\"]}" -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq -r '.result.hex' > ~/.kiabresponse
+    KIABRESPONSE=`cat ~/.kiabresponse`
+    RAWHEX=$KIABRESPONSE
+    sendrawtransaction  
   else
     echo "Nothing to query - start $CHAIN..."
     sleep 1
