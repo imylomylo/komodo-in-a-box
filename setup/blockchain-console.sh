@@ -5,7 +5,7 @@ do
 echo "Blockchain functions for $CHAIN blockchain:"
 ### display main menu ###
 dialog --clear  --help-button --backtitle "Cakeshop Console using pubkey $DEVPUBKEY" \
---title "[ C A K E S H O P - B L O C K C H A I N - C O N S O L E ]" \
+--title "[ S T A R T E R - K I T - B L O C K C H A I N - C O N S O L E ]" \
 --menu "You can use the UP/DOWN arrow keys, the first \n\
 letter of the choice as a hot key, or the \n\
 number keys 1-9 to choose an option.\n\

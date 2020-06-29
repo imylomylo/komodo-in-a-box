@@ -4,7 +4,7 @@ while true
 do
 ### display main menu ###
 dialog --clear  --help-button --backtitle "Cakeshop Console using pubkey $DEVPUBKEY" \
---title "[ C A K E S H O P - T O K E N - C O N S O L E ]" \
+--title "[ S T A R T E R - K I T - T O K E N - C O N S O L E ]" \
 --menu "You can use the UP/DOWN arrow keys, the first \n\
 letter of the choice as a hot key, or the \n\
 number keys 1-9 to choose an option.\n\
@@ -93,7 +93,7 @@ function submenu_tokenfillask {
         echo $CHAIN
         ### display main menu ###
         dialog --clear  --help-button --backtitle "Cakeshop Console" \
-        --title "[ C A K E S H O P - T O K E N - C O N S O L E ]" \
+        --title "[ S T A R T E R - K I T - T O K E N - C O N S O L E ]" \
         --menu "These are the funding txid (tokenid) for the token creation. \n\
         They follow the marker pattern used for creating contracts. \n\
         The funding tx marks the beginning of this contract and can \n\
@@ -156,7 +156,7 @@ function submenu_tokenfillask {
             echo $CHAIN
             ### display main menu ###
             dialog --clear  --help-button --backtitle "Cakeshop Console" \
-            --title "[ C A K E S H O P - O R D E R - C O N S O L E ]" \
+            --title "[ S T A R T E R - K I T - O R D E R - C O N S O L E ]" \
             --menu "These are the funding txid (tokenid) for the token creation. \n\
             They follow the marker pattern used for creating contracts. \n\
             The funding tx marks the beginning of this contract and can \n\
@@ -242,7 +242,7 @@ function submenu_tokenfillbid {
         echo $CHAIN
         ### display main menu ###
         dialog --clear  --help-button --backtitle "Cakeshop Console" \
-        --title "[ C A K E S H O P - T O K E N - C O N S O L E ]" \
+        --title "[ S T A R T E R - K I T - T O K E N - C O N S O L E ]" \
         --menu "These are the funding txid (tokenid) for the token creation. \n\
         They follow the marker pattern used for creating contracts. \n\
         The funding tx marks the beginning of this contract and can \n\
@@ -307,7 +307,7 @@ function submenu_tokenfillbid {
             echo $CHAIN
             ### display main menu ###
             dialog --clear  --help-button --backtitle "Cakeshop Console" \
-            --title "[ C A K E S H O P - O R D E R - C O N S O L E ]" \
+            --title "[ S T A R T E R - K I T - O R D E R - C O N S O L E ]" \
             --menu "These are the funding txid (tokenid) for the token creation. \n\
             They follow the marker pattern used for creating contracts. \n\
             The funding tx marks the beginning of this contract and can \n\
@@ -392,7 +392,7 @@ function submenu_tokencancelask {
         echo $CHAIN
         ### display main menu ###
         dialog --clear  --help-button --backtitle "Cakeshop Console" \
-        --title "[ C A K E S H O P - T O K E N - C O N S O L E ]" \
+        --title "[ S T A R T E R - K I T - T O K E N - C O N S O L E ]" \
         --menu "These are the funding txid (tokenid) for the token creation. \n\
         They follow the marker pattern used for creating contracts. \n\
         The funding tx marks the beginning of this contract and can \n\
@@ -455,7 +455,7 @@ function submenu_tokencancelask {
             echo $CHAIN
             ### display main menu ###
             dialog --clear  --help-button --backtitle "Cakeshop Console" \
-            --title "[ C A K E S H O P - O R D E R - C O N S O L E ]" \
+            --title "[ S T A R T E R - K I T - O R D E R - C O N S O L E ]" \
             --menu "These are the funding txid (tokenid) for the token creation. \n\
             They follow the marker pattern used for creating contracts. \n\
             The funding tx marks the beginning of this contract and can \n\
@@ -541,7 +541,7 @@ function submenu_tokencancelbid {
         echo $CHAIN
         ### display main menu ###
         dialog --clear  --help-button --backtitle "Cakeshop Console" \
-        --title "[ C A K E S H O P - T O K E N - C O N S O L E ]" \
+        --title "[ S T A R T E R - K I T - T O K E N - C O N S O L E ]" \
         --menu "These are the funding txid (tokenid) for the token creation. \n\
         They follow the marker pattern used for creating contracts. \n\
         The funding tx marks the beginning of this contract and can \n\
@@ -604,7 +604,7 @@ function submenu_tokencancelbid {
             echo $CHAIN
             ### display main menu ###
             dialog --clear  --help-button --backtitle "Cakeshop Console" \
-            --title "[ C A K E S H O P - O R D E R - C O N S O L E ]" \
+            --title "[ S T A R T E R - K I T - O R D E R - C O N S O L E ]" \
             --menu "These are the funding txid (tokenid) for the token creation. \n\
             They follow the marker pattern used for creating contracts. \n\
             The funding tx marks the beginning of this contract and can \n\
@@ -690,7 +690,7 @@ function submenu_tokenorders {
     echo $CHAIN
     ### display main menu ###
     dialog --clear  --help-button --backtitle "Cakeshop Console" \
-    --title "[ C A K E S H O P - T O K E N - C O N S O L E ]" \
+    --title "[ S T A R T E R - K I T - T O K E N - C O N S O L E ]" \
     --menu "These are the funding txid (tokenid) for the token creation. \n\
     They follow the marker pattern used for creating contracts. \n\
     The funding tx marks the beginning of this contract and can \n\
@@ -770,7 +770,7 @@ function submenu_tokentransfer {
     echo $CHAIN
     ### display main menu ###
     dialog --clear  --help-button --backtitle "Cakeshop Console" \
-    --title "[ C A K E S H O P - T O K E N - C O N S O L E ]" \
+    --title "[ S T A R T E R - K I T - T O K E N - C O N S O L E ]" \
     --menu "These are the funding txid (tokenid) for the token creation. \n\
     They follow the marker pattern used for creating contracts. \n\
     The funding tx marks the beginning of this contract and can \n\
@@ -851,7 +851,7 @@ function submenu_tokenbid {
     echo $CHAIN
     ### display main menu ###
     dialog --clear  --help-button --backtitle "Cakeshop Console" \
-    --title "[ C A K E S H O P - T O K E N - C O N S O L E ]" \
+    --title "[ S T A R T E R - K I T - T O K E N - C O N S O L E ]" \
     --menu "These are the funding txid (tokenid) for the token creation. \n\
     They follow the marker pattern used for creating contracts. \n\
     The funding tx marks the beginning of this contract and can \n\
@@ -934,7 +934,7 @@ function submenu_tokenask {
     echo $CHAIN
     ### display main menu ###
     dialog --clear  --help-button --backtitle "Cakeshop Console" \
-    --title "[ C A K E S H O P - T O K E N - C O N S O L E ]" \
+    --title "[ S T A R T E R - K I T - T O K E N - C O N S O L E ]" \
     --menu "These are the funding txid (tokenid) for the token creation. \n\
     They follow the marker pattern used for creating contracts. \n\
     The funding tx marks the beginning of this contract and can \n\
@@ -1016,7 +1016,7 @@ function submenu_tokenbalance {
     echo $CHAIN
     ### display main menu ###
     dialog --clear  --help-button --backtitle "Cakeshop Console" \
-    --title "[ C A K E S H O P - T O K E N - C O N S O L E ]" \
+    --title "[ S T A R T E R - K I T - T O K E N - C O N S O L E ]" \
     --menu "These are the funding txid (tokenid) for the token creation. \n\
     They follow the marker pattern used for creating contracts. \n\
     The funding tx marks the beginning of this contract and can \n\
@@ -1098,7 +1098,7 @@ function submenu_tokeninfo {
     echo $CHAIN
     ### display main menu ###
     dialog --clear  --help-button --backtitle "Cakeshop Console" \
-    --title "[ C A K E S H O P - T O K E N - C O N S O L E ]" \
+    --title "[ S T A R T E R - K I T - T O K E N - C O N S O L E ]" \
     --menu "These are the funding txid for the token creation. \n\
     They follow the marker pattern used for creating contracts. \n\
     The funding tx marks the beginning of this contract and can \n\

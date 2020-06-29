@@ -4,7 +4,7 @@ while true
 do
 ### display main menu ###
 dialog --clear  --help-button --backtitle "Cakeshop Console using pubkey $DEVPUBKEY" \
---title "[ C A K E S H O P - O R A C L E S - C O N S O L E ]" \
+--title "[ S T A R T E R - K I T - O R A C L E S - C O N S O L E ]" \
 --menu "You can use the UP/DOWN arrow keys, the first \n\
 letter of the choice as a hot key, or the \n\
 number keys 1-9 to choose an option.\n\
@@ -90,7 +90,7 @@ function submenu_oraclesregister {
     echo $CHAIN
     ### display main menu ###
     dialog --clear  --help-button --backtitle "Cakeshop Console" \
-    --title "[ C A K E S H O P - O R A C L E S - C O N S O L E ]" \
+    --title "[ S T A R T E R - K I T - O R A C L E S - C O N S O L E ]" \
     --menu "These are the funding txid for the oracles creation. \n\
     They follow the marker pattern used for creating contracts. \n\
     The funding tx marks the beginning of this contract and can \n\
@@ -169,7 +169,7 @@ function submenu_oraclesinfo {
     echo $CHAIN
     ### display main menu ###
     dialog --clear  --help-button --backtitle "Cakeshop Console" \
-    --title "[ C A K E S H O P - O R A C L E S - C O N S O L E ]" \
+    --title "[ S T A R T E R - K I T - O R A C L E S - C O N S O L E ]" \
     --menu "These are the funding txid for the oracles creation. \n\
     They follow the marker pattern used for creating contracts. \n\
     The funding tx marks the beginning of this contract and can \n\
