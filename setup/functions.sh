@@ -453,6 +453,7 @@ function coingw {
 
 function setup_dev2wallet {
   echo "Entering DEV2 wallet setup"
+  sleep 5
   if ! ps aux | grep -i [r]egtest | grep -v dialog | grep -vi cakeshopdevsetup ; then
   echo "Starting DEV2 wallet setup"
   hide_output komodod -regtest -ac_name=CAKESHOPDEVSETUP -ac_supply=500 &
