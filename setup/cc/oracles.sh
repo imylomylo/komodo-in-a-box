@@ -99,3 +99,20 @@ function oraclesregister {
     sleep 1
   fi
 }
+
+function oraclessubscribe {
+  KIABMETHOD="oraclessubscribe"
+  if ps aux | grep komodod | grep $CHAIN | grep -v grep ; then
+    SUBSCRIBERPAYMENT=0.05
+    ORACLESPUBLISHERID="02eac2d2f777c1e166d970a4091fc4e908fff83459ca0be0820e15975506ade7d7"
+    curl -s --user $rpcuser:$rpcpassword --data-binary "{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"$KIABMETHOD\", \"params\": [\"$ORACLESTXID\", \"$ORACLESPUBLISHERID\", \"$SUBSCRIBERPAYMENT\"]}" -H 'content-type: text/plain;' http://127.0.0.1:$rpcport/ | jq -r '.result.hex' > ~/.kiabresponse
+    KIABRESPONSE=`cat ~/.kiabresponse`
+    cat ~/.kiabresponse
+    sleep 3
+    RAWHEX=$KIABRESPONSE
+    sendrawtransaction  
+  else
+    echo "Nothing to query - start $CHAIN..."
+    sleep 1
+  fi
+}
