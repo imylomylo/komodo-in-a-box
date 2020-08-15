@@ -29,7 +29,7 @@ letter of the choice as a hot key, or the \n\
 number keys 1-9 to choose an option.\n\
 Choose the TASK" 25 120 14 \
 BSK_1_HOST "Blockchain Starer Kit - single node seed & mining" \
-BSK "Blockchain Starter Kit - seed node or mining node" \
+BSK2 "Blockchain Starter Kit - node or and parameters" \
 RICK "RICK - a test chain" \
 MORTY "MORTY - a test chain" \
 MM2 "(q3 2020) - Marketmaker 2 integration" \
@@ -42,7 +42,7 @@ menuitem=$(<"${INPUT}")
 # make decsion
 case $menuitem in
 	BSK_1_HOST) bsk1n;;
-	BSK) bsk;;
+	BSK2) bsk2;;
 	RICK) CHAIN=RICK;submenu_chain;;
 	MORTY) CHAIN=MORTY;submenu_chain;;
 	MAINT) submenu_maint;;

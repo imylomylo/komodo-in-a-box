@@ -1,6 +1,6 @@
 source setup/chainconfig.sh
 source setup/bsk1n.sh
-source setup/bsk.sh
+source setup/bsk2.sh
 source setup/regtest.sh
 
 function submenu_maint {
