@@ -247,7 +247,7 @@ function bsk2_param_staked {
 	    sleep 2
     else
       input_box "$CHAIN" "What percentage of proof of staked in $CHAIN? -ac_staked=" "50" AC_PARAM_STAKED
-      PARAM_STRING="${PARAM_STRING} -ac_blocktime=${AC_PARAM_STAKED}"
+      PARAM_STRING="${PARAM_STRING} -ac_staked=${AC_PARAM_STAKED}"
     fi
 }
 
